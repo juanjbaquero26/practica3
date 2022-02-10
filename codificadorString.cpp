@@ -1,4 +1,4 @@
-
+/*
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -10,13 +10,23 @@ using namespace std;
 int main()
 {
     string str1, str2,str4,str3="";
+    string archivoE,archivoS;
     ifstream fin;               //stream de entrada, lectura
     ofstream fout;              //stream de salida, escritura
 
     cout<<"Ingrese una palabra: ";
     //cin>>str1;                          //lee una cadena sin espacios
 
-    getline(cin,str1);      //lee una cadena con espacios
+    getline(cin,str1);
+    cout<<"Ingrese el archivo donde esta el coso: ";
+    //cin>>str1;                          //lee una cadena sin espacios
+
+    getline(cin,archivoE);
+    cout<<"Ingrese donde quiere que quede el archivo: ";
+    //cin>>str1;                          //lee una cadena sin espacios
+
+    getline(cin,archivoS);
+    //lee una cadena con espacios
 
     try{
         fout.open("archivo3.txt");       //abre el archivo para escritura
@@ -26,7 +36,7 @@ int main()
         fout<<str1;                     //escribe la palabra
         fout.close();                   //cierra el archivo
 
-        fin.open("archivo3.txt");        //abre el archivo para lectura
+        fin.open(archivoE);        //abre el archivo para lectura
         if(!fin.is_open()){
             throw '2';
         }
@@ -134,10 +144,10 @@ int main()
         }
         cout<<total;
 
-        fout.open("archivo4.txt");
+        fout.open(archivoS);
         fout<<total;                     //escribe la palabra
         fout.close();
-        cout<<"el archivo generado esta en "<<"archivo4.txt"<<endl;
+        cout<<"el archivo generado esta en "<<archivoS<<endl;
         break;
 
     };
@@ -414,7 +424,7 @@ int main()
             }
 
         }
-        fout.open("archivo5.txt");
+        fout.open(archivoS);
         fout<<total;                     //escribe la palabra
         fout.close();
          cout<<"el archivo generado esta en "<<str4<<endl;
@@ -426,5 +436,5 @@ int main()
 
     return 0;
 }
-
+*/
 

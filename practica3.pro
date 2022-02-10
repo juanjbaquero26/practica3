@@ -5,5 +5,6 @@ CONFIG -= qt
 
 SOURCES += \
         aplicacion.cpp \
-        decoString.cpp \
-        main.cpp
+        codificaChar.cpp \
+        codificadorString.cpp \
+        decoString.cpp
