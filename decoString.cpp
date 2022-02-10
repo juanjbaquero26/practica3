@@ -82,11 +82,11 @@ int main()
             while (tamCantidad-n>0) {
                 codificado=str3.substr(j,n);
                 for(int l=0;l<n;l++){
-                    if(l==0){
-                        codificadoTotal=codificadoTotal+codificado[n-1];
+                    if(l==n-1){
+                        codificadoTotal=codificadoTotal+codificado[l-l];
                     }
                     else{
-                        codificadoTotal=codificadoTotal+codificado[l-1];
+                        codificadoTotal=codificadoTotal+codificado[l+1];
                     }
                 }
                 tamCantidad-=n;
@@ -96,11 +96,11 @@ int main()
             }
             codificado=str3.substr(j,tamCantidad%n);
             for(int l=0;l<tamCantidad%n;l++){
-                if(l==0){
-                    codificadoTotal=codificadoTotal+codificado[tamCantidad%n-1];
+                if(l==n-1){
+                    codificadoTotal=codificadoTotal+codificado[tamCantidad%n-tamCantidad%n];
                 }
                 else{
-                    codificadoTotal=codificadoTotal+codificado[l-1];
+                    codificadoTotal=codificadoTotal+codificado[l+1];
                 }
             }
             total+=codificadoTotal;
@@ -455,5 +455,4 @@ int main()
 
     return 0;
 }
-
 

@@ -4,426 +4,157 @@
 #include <sstream>
 #include <string>
 #include <bitset>
-
+#include <time.h>
 using namespace std;
-
+void menu();
+int parti=0;
+string cadena2;
+string tr;
+void metodo1();
+void metodo2();
+ifstream fin;               //stream de entrada, lectura
+ofstream fout;
+char cadena3[15],cadena4[]={};
 int main()
+
 {
-    string str1, str2,str3="";
-    ifstream fin;               //stream de entrada, lectura
-    ofstream fout;              //stream de salida, escritura
 
-    cout<<"Ingrese una palabra: ";
-    //cin>>str1;                          //lee una cadena sin espacios
+    int n=0;
+    cout << "ingrese el tamaño de la cadena: "<<endl;
+    cin >> n;
+    char cadena1[n];
+    cout << "Ingrese una cadena de caracteres" << endl ;
+    cin >> cadena1;
+    //cout << "la cadena ingresada fue:" << cadena1 << endl;
 
-    getline(cin,str1);      //lee una cadena con espacios
+    int tamano = sizeof cadena1;
+    //int tam = 8*tamano;
+    string cadena2;
+    //cout<<"el tamaño de la cadena es: " << tamano<<endl;
+    for(int i=0; i<tamano ;i++){
+        bitset<8> bin(cadena1[i]);
+        string tr = bin.to_string();
+        cout << "binario " << cadena1[i]<< ":" << bin<< endl;
+        cadena2+=tr;
 
-    try{
-        fout.open("archivo3.txt");       //abre el archivo para escritura
+    }
+cout <<"el binario inicial es: "<< cadena2<< endl;
+
+
+
+/*for(int i=0;i<tam;i++){
+    char tan[32]={""};
+tan= tan+ cadena2[i];}*/
+/*
+ int parti = 0;
+cout << "ingrese el numero de particiones"<<endl;
+cin >> parti ;
+//srand(time(NULL));
+
+menu();
+cout << "ingrese que metodo le gustaria usar: "<<endl ;
+int opcion;
+cin >> opcion ;
+switch(opcion){
+case 1:
+    //metodo1();
+    try {
+        fout.open("archivo3.txt");
         if(!fout.is_open()){
-            throw '1';
-        }
-        fout<<str1;                     //escribe la palabra
-        fout.close();                   //cierra el archivo
-
-        fin.open("archivo3.txt");        //abre el archivo para lectura
-        if(!fin.is_open()){
-            throw '2';
-        }
-
-
-
-        //getline(fin,str3);           //lee una linea y la almacena en el string str3
-
-       // fin.seekg(0);                 //vuelve al principio del archivo
-
-        while(fin.good()){              //lee caracter a caracter hasta el fin del archivo
-            char temp=fin.get();
-            if(fin.good()){
-                str2 +=temp;     //Asigna cada caracter leido a la cadena de caracteres
-            }
-        }
-        fin.close();                //Cierra el archivo de lectura.
-
-
-    }
-    catch (char c){
-        cout<<"Error # "<<c<<": ";
-        if(c=='1'){
-            cout<<"Error al abrir el archivo para escritura.\n";
-        }
-        else if(c=='2'){
-            cout<<"Error al abrir el archivo para lectura.\n";
-        }
-    }
-    catch (...){
-        cout<<"Error no definido\n";
-    }
-    char eleccion;
-    cout<<"ingrese el metodo a utilizar"<<endl;
-    cin>>eleccion;
-    int n;
-    cout<<"ingrese las particiones"<<endl;
-    cin>>n;
-    switch (eleccion) {
-        case '2': {
-        int tamano=str2.length();
-        string temporal="";
-        for(int i=0;i<tamano;i++){
-            bitset<8> bs3(str2[i]);
-            temporal=bs3.to_string();
-            cout << "binary:  " << bs3 <<" letra  " <<str2[i]<<endl;
-            str3+=temporal;
-            temporal="";
-
-
-
-
-        }
-        cout<<str3;
-        int tamCantidad=str3.length();
-
-        string codificado,codificadoTotal="",total="";
-        int j=0;
-        if(tamCantidad%n>0){
-            while (tamCantidad-n>0) {
-                codificado=str3.substr(j,n);
-                for(int l=0;l<n;l++){
-                    if(l==0){
-                        codificadoTotal=codificadoTotal+codificado[n-1];
-                    }
-                    else{
-                        codificadoTotal=codificadoTotal+codificado[l-1];
-                    }
+                    throw '1';
                 }
-                tamCantidad-=n;
-                j+=n;
-                total+=codificadoTotal;
-                codificadoTotal="";
-            }
-            codificado=str3.substr(j,tamCantidad%n);
-            for(int l=0;l<tamCantidad%n;l++){
-                if(l==0){
-                    codificadoTotal=codificadoTotal+codificado[tamCantidad%n-1];
-                }
-                else{
-                    codificadoTotal=codificadoTotal+codificado[l-1];
-                }
-            }
-            total+=codificadoTotal;
-
-        }
-        else{
-
-            while(tamCantidad>0){
-                codificado=str3.substr(j,n);
-                for(int l=0;l<n;l++){
-                    if(l==0){
-                        codificadoTotal=codificadoTotal+codificado[n-1];
-                    }
-                    else{
-                        codificadoTotal=codificadoTotal+codificado[l-1];
-                    }
-                }
-                tamCantidad-=n;
-                j+=n;
-                total+=codificadoTotal;
-                codificadoTotal="";
-
-            }
-        }
-        cout<<total;
-
-        fout.open("archivo5.txt");
-        fout<<total;                     //escribe la palabra
-        fout.close();
-        break;
-
-    };
-
-    case '1': {
-        int tamano=str2.length();
-        string temporal="";
-        for(int i=0;i<tamano;i++){
-            bitset<8> bs3(str2[i]);
-            temporal=bs3.to_string();
-            cout << "binary:  " << bs3 <<" letra  " <<str2[i]<<endl;
-            str3+=temporal;
-            temporal="";
-
-
-    }
-        cout<<str3;
-        int tamCantidad=str3.length();
-
-        string codificado,codificadoTotal="",total="";
-        string secuencia;
-        int j=0;
-        int conta=1,unos=0,ceros=0;
-        if(tamCantidad%n>0){
-            while(tamCantidad-n>0){
-                codificado=str3.substr(j,n);
-
-                if(conta==1){
-                    for(int l=0;l<n;l++){
-                        if(codificado[l]=='1'){
-                            codificadoTotal+='0';
-                        }
-                        else{
-                            codificadoTotal+='1';
-                        }
-                    }
-
-                }
-                else{
-                    codificado=str3.substr(j,n);
-                    for(int l=0;l<n;l++){
-                        if(codificado[l]=='1'){
-                            unos++;
-                        }
-                        else{
-                            ceros++;
+                fout<<cadena2;                     //escribe la palabra
+                fout.close();
+                fin.open("archivo3.txt");        //abre el archivo para lectura
+                        if(!fin.is_open()){
+                            throw '2';
                         }
 
-                    }
-                    secuencia=str3.substr(j+n,n);
-                    if(unos==ceros){
-                        for(int l=0;l<n;l++){
-                            if(secuencia[l]=='1'){
-                                codificadoTotal+='0';
+                        int i=0;
+
+                        //fin.getline(cadena4,15);           //lee una linea y la almacena en cadena3
+
+                        fin.seekg(0);                   //vuelve al principio del archivo
+
+                        while(fin.good()){              //lee caracter a caracter hasta el fin del archivo
+                            char temp=fin.get();
+                            if(fin.good()){
+                                cadena3[i]=temp;     //Asigna cada caracter leido a la cadena de caracteres
                             }
-                            else{
-                                codificadoTotal+='1';
-                            }
+                            i++;
                         }
-
-                    }
-                    else if(ceros>unos){
-                        int dosbits=1;
-                        for(int l=0;l<n;l++){
-                            if(dosbits==2){
-                                if(secuencia[l]=='1'){
-                                    codificadoTotal+='0';
-                                }
-                                else if(secuencia[l]=='0'){
-                                    codificadoTotal+='1';
-                                }
-                                dosbits=1;
-                            }
-                            else{
-                                codificadoTotal+=secuencia[l];
-                                dosbits++;
-                            }
-
-
+                        fin.close();
+                        cout << "cadena 3: " << cadena3<<endl;
+                        char cadenatemporal[]={};
+                        for(int i=0;i<parti;i++)  {
+                          cadenatemporal[parti ] += cadena3[i];
+                          cout << cadenatemporal<<endl;
                         }
-                    }
-                    else if(unos>ceros){
-
-                        int dosbits=1;
-                        for(int l=0;l<n;l++){
-                            if(dosbits==3){
-                                if(secuencia[l]=='1'){
-                                    codificadoTotal+='0';
-
-                                }
-                                else{
-                                    codificadoTotal+='1';
-                                }
-                                dosbits=1;
-                            }
-                            else{
-                                dosbits++;
-                                codificadoTotal+=secuencia[l];
-                            }
-
-                        }
-                   }
-
-
-                    j+=n;
-
-                }
-                tamCantidad-=n;
-
-                total+=codificadoTotal;
-                codificadoTotal="";
-                conta++;
-                ceros=0;
-                unos=0;
-
-            }
-            codificado=str3.substr(j,n);
-            for(int l=0;l<n;l++){
-                if(codificado[l]=='1'){
-                    unos++;
-                }
-                else{
-                    ceros++;
-                }
-
-            }
-            secuencia=str3.substr(j+n,tamCantidad%n);
-            if(unos==ceros){
-                for(int l=0;l<tamCantidad%n;l++){
-                    if(secuencia[l]=='1'){
-                        codificadoTotal+='0';
-                    }
-                    else{
-                        codificadoTotal+='1';
-                    }
-                }
-
-            }
-            else if(ceros>unos){
-                int dosbits=1;
-                for(int l=0;l<tamCantidad%n;l++){
-                    if(dosbits==2){
-                        if(secuencia[l]=='1'){
-                            codificadoTotal+='0';
-                        }
-                        else{
-                            codificadoTotal+='1';
-                        }
-                        dosbits=1;
-                    }
-                    else{
-                        codificadoTotal+=secuencia[l];
-                        dosbits++;
-                    }
-
-
-                }
-
-            }
-            else if(unos>ceros){
-
-                int dosbits=1;
-                for(int l=0;l<tamCantidad%n;l++){
-                    if(dosbits==3){
-                        if(secuencia[l]=='1'){
-                            codificadoTotal+='0';
-                        }
-                        else{
-                            codificadoTotal+='1';
-                        }
-                        dosbits=1;
-                    }
-                    else{
-                        dosbits++;
-                        codificadoTotal+=secuencia[l];
-                    }
-
-                }
-
-
-            }
-            total+=codificadoTotal;
-        }
-        else{
-            while(tamCantidad>0){
-                codificado=str3.substr(j,n);
-
-                if(conta==1){
-                    for(int l=0;l<n;l++){
-                        if(codificado[l]=='1'){
-                            codificadoTotal+='0';
-                        }
-                        else{
-                            codificadoTotal+='1';
-                        }
-                    }
-
-                }
-                else{
-                    codificado=str3.substr(j,n);
-                    for(int l=0;l<n;l++){
-                        if(codificado[l]=='1'){
-                            unos++;
-                        }
-                        else{
-                            ceros++;
-                        }
-
-                    }
-                    secuencia=str3.substr(j+n,n);
-                    if(unos==ceros){
-                        for(int l=0;l<n;l++){
-                            if(secuencia[l]=='1'){
-                                codificadoTotal+='0';
-                            }
-                            else{
-                                codificadoTotal+='1';
-                            }
-                        }
-
-                    }
-                    else if(ceros>unos){
-                        int dosbits=1;
-                        for(int l=0;l<n;l++){
-                            if(dosbits==2){
-                                if(secuencia[l]=='1'){
-                                    codificadoTotal+='0';
-                                }
-                                else{
-                                    codificadoTotal+='1';
-                                }
-                                dosbits=1;
-                            }
-                            else{
-                                codificadoTotal+=secuencia[l];
-                                dosbits++;
-                            }
-
-
-                        }
-                    }
-                    else if(unos>ceros){
-
-                        int dosbits=1;
-                        for(int l=0;l<n;l++){
-                            if(dosbits==3){
-                                if(secuencia[l]=='1'){
-                                    codificadoTotal+='0';
-                                }
-                                else{
-                                    codificadoTotal+='1';
-                                }
-                                dosbits=1;
-                            }
-                            else{
-                                codificadoTotal+=secuencia[l];
-                                dosbits++;
-
-                            }
-
-                        }
-                    }
-                    j+=n;
-
-                }
-                tamCantidad-=n;
-
-                total+=codificadoTotal;
-                codificadoTotal="";
-                conta++;
-                ceros=0;
-                unos=0;
-
+                        cout << cadenatemporal<<endl;
+    }  catch
+        (...){
+                cout<<"Error no definido\n";
             }
 
-        }
-        fout.open("archivo6.txt");
-        fout<<total;                     //escribe la palabra
-        fout.close();
-        break;
-   };
-        default: cout << "Usted ha ingresado una opción incorrecta";
-    } ;
+    break;
+case 2:
+    metodo2();
+    break;
+default:
+    cout << "ese metodo no existe intente otro" << endl;
 
-
-    return 0;
 }
 
+return 0;
+}*//*
+void menu(){
+    cout << "LAS OPCIONES DE CODIFICACION SON" << endl;
+    cout << "____________"<<endl;
+    cout << "METODO 1: Invertir numeros" << endl;
+    cout << "METODO 2: Desplazamiento" << endl;
+}*/
+//void metodo1(){
+  /*  try {
+        fout.open("archivo3.txt");
+        if(!fout.is_open()){
+                    throw '1';
+                }
+                fout<<cadena2;                     //escribe la palabra
+                fout.close();
+                fin.open("archivo3.txt");        //abre el archivo para lectura
+                        if(!fin.is_open()){
+                            throw '2';
+                        }
+
+                        int i=0;
+
+                        fin.getline(cadena4,15);           //lee una linea y la almacena en cadena3
+
+                        fin.seekg(0);                   //vuelve al principio del archivo
+
+                        while(fin.good()){              //lee caracter a caracter hasta el fin del archivo
+                            char temp=fin.get();
+                            if(fin.good()){
+                                cadena3[i]=temp;     //Asigna cada caracter leido a la cadena de caracteres
+                            }
+                            i++;
+                        }
+                        fin.close();
+                        cout << cadena3<<endl;
+                        cout << cadena4<<endl;
+                        cout << cadena2 << endl;
+
+    }  catch
+        (...){
+                cout<<"Error no definido\n";
+            }*/
+
+
+
+/*
+}
+void metodo2(){
+  cout<<"met2"<<endl;
+}
 */
 
