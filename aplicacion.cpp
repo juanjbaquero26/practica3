@@ -1,4 +1,4 @@
-
+/*
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -9,7 +9,7 @@ using namespace std;
 
 int main()
 {
-    string str1, str2,str4,str3="";
+    string str1, str2,str3="";
     ifstream fin;               //stream de entrada, lectura
     ofstream fout;              //stream de salida, escritura
 
@@ -134,10 +134,9 @@ int main()
         }
         cout<<total;
 
-        fout.open("archivo4.txt");
+        fout.open("archivo5.txt");
         fout<<total;                     //escribe la palabra
         fout.close();
-        cout<<"el archivo generado esta en "<<"archivo4.txt"<<endl;
         break;
 
     };
@@ -414,10 +413,9 @@ int main()
             }
 
         }
-        fout.open("archivo5.txt");
+        fout.open("archivo6.txt");
         fout<<total;                     //escribe la palabra
         fout.close();
-         cout<<"el archivo generado esta en "<<str4<<endl;
         break;
    };
         default: cout << "Usted ha ingresado una opción incorrecta";
@@ -427,4 +425,5 @@ int main()
     return 0;
 }
 
+*/
 

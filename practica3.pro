@@ -4,5 +4,6 @@ CONFIG -= app_bundle
 CONFIG -= qt
 
 SOURCES += \
+        aplicacion.cpp \
         decoString.cpp \
         main.cpp
